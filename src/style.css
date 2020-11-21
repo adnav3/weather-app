@@ -1,0 +1,97 @@
+body {
+  margin-top: 25px;
+}
+
+form {
+  text-align: right;
+}
+input {
+  padding: 5px 15px;
+}
+
+hr {
+  color: gray;
+  border-top: 1px solid;
+}
+
+h2 {
+  font-size: 40px;
+  display: block;
+  margin-top: 15px;
+}
+
+h6 {
+  font-size: 20px;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+.forecast-temp,
+.forecast-weekdays,
+.forecast-symbols {
+  text-align: center;
+}
+
+.forecast-weekdays {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.forecast-symbols {
+  font-size: 25px;
+}
+
+.forecast-temp {
+  font-size: 15px;
+}
+
+#app-body {
+  background-image: url(../img/clear\ sky.jpg);
+  border: 5px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+#forecast-body {
+  background-color: #f1f3f8;
+  margin-top: 10px;
+}
+
+#search-btn {
+  background-color: #0dbf0d;
+}
+
+#location-button {
+  font-size: 15px;
+  border-radius: 25px;
+  border-width: 1px;
+  padding: 2px 6px;
+}
+
+#temp-celsius-btn,
+#temp-fahrenheit-btn {
+  padding: 0px 24px;
+  background-color: black;
+  color: white;
+  border: 1px solid;
+  border-color: black;
+  border-radius: 25px;
+  font-size: 15px;
+  margin-top: 15px;
+}
+
+#search-btn:hover {
+  background-color: #0ca10ca4;
+}
+
+#location-button:hover {
+  background-color: #0dbf0d;
+}
+
+#temp-celsius-btn:hover,
+#temp-fahrenheit-btn:hover {
+  background-color: cornflowerblue;
+  box-shadow: 3px 5px 5px gray;
+}
