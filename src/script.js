@@ -17,41 +17,36 @@ function cityName(event) {
 //Get Weather Details Features
 function currentCityName(response) {
   let cityName = response.data.name;
-
   let currentCity = document.querySelector("#search-result");
   currentCity.innerHTML = `${cityName}`;
 }
 
 function currentCityTemp(response) {
   let cityTemperature = Math.round(response.data.main.temp);
-
   let temperature = document.querySelector("#temp-now");
   temperature.innerHTML = `${cityTemperature}`;
 }
 
 function currentCityWeather(response) {
   let cityWeatherDescription = response.data.weather[0].description;
-  let cityWeatherShort = response.data.weather[0].main;
-
   let weatherDescription = document.querySelector("#current-weather");
   weatherDescription.innerHTML = `${cityWeatherDescription}`;
 }
 
 function currentCityHumidity(response) {
   let cityHumidity = response.data.main.humidity;
-
   let humidity = document.querySelector("#humidity");
   humidity.innerHTML = `${cityHumidity}`;
 }
 
 function currentCityWind(response) {
   let cityWind = response.data.wind.speed;
-
   let wind = document.querySelector("#wind");
   wind.innerHTML = `${cityWind}`;
 }
 
 function CityStats(response) {
+  console.log(response);
   currentCityName(response);
   currentCityTemp(response);
   currentCityWeather(response);
@@ -64,6 +59,7 @@ function currentLocation(position) {
   let lat = position.coords.latitude;
   let long = position.coords.longitude;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=metric`;
+  console.log(url);
   axios.get(url).then(CityStats);
 }
 

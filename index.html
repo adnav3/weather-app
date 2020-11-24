@@ -28,7 +28,8 @@
               type="search"
               id="city-search"
               placeholder="Enter city name..."
-              autofocus
+              autofocus="on"
+              autocomplete="off"
             />
             <input type="submit" value="Search" id="search-btn" />
           </form>
@@ -71,8 +72,8 @@
                 <i class="fas fa-map-marker-alt"></i>
               </button>
               <div id="temp-btns">
-                <button id="temp-celsius-btn">Cº</button>
-                <button id="temp-fahrenheit-btn">Fº</button>
+                <button class="active" id="temp-celsius-btn">Cº</button>
+                <button class="inactive" id="temp-fahrenheit-btn">Fº</button>
               </div>
             </div>
           </div>
@@ -112,9 +113,12 @@
           </div>
         </div>
       </div>
-      <a href="https://github.com/adnav3/weather-app" id="git" target="_blank"
-        >GitHub repository</a
-      >
+      <p id="git">
+        <a href="https://github.com/adnav3/weather-app" target="_blank"
+          >Open-source code</a
+        >
+        by Vanda Moura
+      </p>
     </div>
 
     <script src="src/script.js"></script>

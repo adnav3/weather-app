@@ -5,8 +5,10 @@ body {
 form {
   text-align: right;
 }
+
 input {
   padding: 5px 15px;
+  border-radius: 5px;
 }
 
 hr {
@@ -22,10 +24,16 @@ h2 {
 
 h6 {
   font-size: 20px;
+  text-transform: capitalize;
 }
 
 p {
   margin-bottom: 0px;
+}
+
+.active {
+  background-color: black;
+  color: white;
 }
 
 .forecast-temp,
@@ -61,6 +69,8 @@ p {
 
 #search-btn {
   background-color: #0dbf0d;
+  box-shadow: 3px 5px 5px gray;
+  transition-duration: 30ms;
 }
 
 #location-button {
@@ -68,35 +78,36 @@ p {
   border-radius: 25px;
   border-width: 1px;
   padding: 2px 6px;
+  box-shadow: 3px 5px 5px gray;
+  transition-duration: 30ms;
 }
 
 #temp-celsius-btn,
 #temp-fahrenheit-btn {
   padding: 0px 24px;
-  background-color: black;
-  color: white;
   border: 1px solid;
   border-color: black;
   border-radius: 25px;
   font-size: 15px;
   margin-top: 15px;
-}
-
-#search-btn:hover {
-  background-color: #0ca10ca4;
-}
-
-#location-button:hover {
-  background-color: #0dbf0d;
-}
-
-#temp-celsius-btn:hover,
-#temp-fahrenheit-btn:hover {
-  background-color: cornflowerblue;
   box-shadow: 3px 5px 5px gray;
 }
 
 #git {
   color: grey;
   font-size: 13px;
+}
+
+.inactive:hover {
+  background-color: cornflowerblue;
+}
+
+#search-btn:hover {
+  color: white;
+}
+
+#location-button:hover,
+.inactive:hover {
+  background-color: #0dbf0d;
+  color: white;
 }
