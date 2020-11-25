@@ -1,5 +1,35 @@
 function forecast(response) {
-  console.log(response);
+  for (let index = 0; index < 5; index++) {
+    let key = index;
+    console.log(key);
+
+    let dateTime = response.data.daily[[index]].dt;
+    let timezone = response.data.timezone_offset;
+    let localDate = new Date((dateTime + timezone) * 1000);
+
+    let weekday = document.querySelector(`#wd${index}`);
+    weekday.innerHTML = getWeekday(localDate).slice(0, 3);
+
+    let minTemp = response.data.daily[[index]].temp.min;
+    let maxTemp = response.data.daily[[index]].temp.max;
+
+    let minTemperature = document.querySelector(`#fmint${index}`);
+    minTemperature.innerHTML = `${Math.round(`${minTemp}`)}`;
+    let maxTemperature = document.querySelector(`#fmaxt${index}`);
+    maxTemperature.innerHTML = `${Math.round(`${maxTemp}`)}`;
+
+    let weatherIcon = document.querySelector(`#fs${index}`);
+    weatherIcon.setAttribute(
+      "src",
+      `https://openweathermap.org/img/wn/${
+        response.data.daily[[index]].weather[0].icon
+      }@2x.png`
+    );
+    weatherIcon.setAttribute(
+      "alt",
+      `${response.data.daily[[index]].weather[0].description}`
+    );
+  }
 }
 
 function getWeekday(date) {
