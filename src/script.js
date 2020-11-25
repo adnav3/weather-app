@@ -87,15 +87,30 @@ function cityName(city) {
   }
 }
 
+function getLocation(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(url).then(currentWeather);
+}
+
 function searchResult(event) {
   event.preventDefault();
   let city = document.querySelector("#city-search").value;
   cityName(city);
 }
 
+//Global Variables
+let apiKey = "adc7ca37eff3fa0b73ae6b54ab48c90d";
+
+//Button Listeners
 let citySearch = document.querySelector("#search-form");
 citySearch.addEventListener("submit", searchResult);
 
-let apiKey = "adc7ca37eff3fa0b73ae6b54ab48c90d";
+let currentLocation = document.querySelector("#location-button");
+currentLocation.addEventListener("click", function () {
+  navigator.geolocation.getCurrentPosition(getLocation);
+});
 
+//Default location on page load
 cityName("lisbon");
