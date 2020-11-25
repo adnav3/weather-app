@@ -1,9 +1,31 @@
-function getWeekday(date) {}
-
-function getTime(time, timezone) {}
-
 function forecast(response) {
   console.log(response);
+}
+
+function getWeekday(date) {
+  let weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = `${weekDays[date.getUTCDay()]}`;
+  return day;
+}
+
+function getTime(time) {
+  let hours = time.getUTCHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = time.getUTCMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}h${minutes}`;
 }
 
 function currentWeather(response) {
@@ -12,8 +34,13 @@ function currentWeather(response) {
 
   let dateTime = response.data.dt;
   let timezone = response.data.timezone;
-  getWeekday(dateTime);
-  getTime(dateTime, timezone);
+  let localDate = new Date((dateTime + timezone) * 1000);
+
+  let todaywd = document.querySelector("#current-wd");
+  todaywd.innerHTML = getWeekday(localDate);
+
+  let currentTime = document.querySelector("#current-tm");
+  currentTime.innerHTML = getTime(localDate);
 
   let temperature = document.querySelector("#temp-now");
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
@@ -21,7 +48,7 @@ function currentWeather(response) {
   let weatherIcon = document.querySelector("#wthr-now-symbol");
   weatherIcon.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   weatherIcon.setAttribute("alt", `${response.data.weather[0].description}`);
 
