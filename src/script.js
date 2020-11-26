@@ -1,8 +1,5 @@
 function forecast(response) {
   for (let index = 0; index < 5; index++) {
-    let key = index;
-    console.log(key);
-
     let dateTime = response.data.daily[[index]].dt;
     let timezone = response.data.timezone_offset;
     let localDate = new Date((dateTime + timezone) * 1000);
