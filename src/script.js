@@ -1,3 +1,67 @@
+function fahrenheitToCelsius() {
+  let tempValue = document.querySelector("#temp-now").innerHTML;
+  let unit = document.querySelector("#cf").innerHTML;
+
+  if (unit === "ºC") {
+    alert("The temperature is already in Celsius");
+  } else {
+    let temp = document.querySelector("#temp-now");
+    let cTemp = Math.round(((tempValue - 32) * 5) / 9);
+    temp.innerHTML = `${cTemp}`;
+    let unitName = document.querySelector("#cf");
+    unitName.innerHTML = `ºC`;
+
+    for (let index = 0; index < 5; index++) {
+      let minTemp = document.querySelector(`#fmint${index}`);
+      let minTempValue = minTemp.innerHTML;
+      let cMinTemp = Math.round(((minTempValue - 32) * 5) / 9);
+      minTemp.innerHTML = `${cMinTemp}`;
+
+      let maxTemp = document.querySelector(`#fmaxt${index}`);
+      let maxTempValue = maxTemp.innerHTML;
+      let cMaxTemp = Math.round(((maxTempValue - 32) * 5) / 9);
+      maxTemp.innerHTML = `${cMaxTemp}`;
+    }
+
+    celsiusButton.classList.remove("inactive");
+    celsiusButton.classList.add("active");
+    fahrenheitButton.classList.remove("active");
+    fahrenheitButton.classList.add("inactive");
+  }
+}
+
+function celsiusToFahrenheit() {
+  let tempValue = document.querySelector("#temp-now").innerHTML;
+  let unit = document.querySelector("#cf").innerHTML;
+
+  if (unit === "ºF") {
+    alert("The temperature is already in Fahrenheit");
+  } else {
+    let temp = document.querySelector("#temp-now");
+    let fTemp = Math.round((tempValue * 9) / 5 + 32);
+    temp.innerHTML = `${fTemp}`;
+    let unitName = document.querySelector("#cf");
+    unitName.innerHTML = `ºF`;
+
+    for (let index = 0; index < 5; index++) {
+      let minTemp = document.querySelector(`#fmint${index}`);
+      let minTempValue = minTemp.innerHTML;
+      let fMinTemp = Math.round((minTempValue * 9) / 5 + 32);
+      minTemp.innerHTML = `${fMinTemp}`;
+
+      let maxTemp = document.querySelector(`#fmaxt${index}`);
+      let maxTempValue = maxTemp.innerHTML;
+      let fMaxTemp = Math.round((maxTempValue * 9) / 5 + 32);
+      maxTemp.innerHTML = `${fMaxTemp}`;
+    }
+
+    fahrenheitButton.classList.remove("inactive");
+    fahrenheitButton.classList.add("active");
+    celsiusButton.classList.remove("active");
+    celsiusButton.classList.add("inactive");
+  }
+}
+
 function forecast(response) {
   for (let index = 0; index < 5; index++) {
     let dateTime = response.data.daily[[index]].dt;
@@ -29,6 +93,18 @@ function forecast(response) {
   }
 }
 
+function getTime(time) {
+  let hours = time.getUTCHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = time.getUTCMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}h${minutes}`;
+}
+
 function getWeekday(date) {
   let weekDays = [
     "Sunday",
@@ -41,18 +117,6 @@ function getWeekday(date) {
   ];
   let day = `${weekDays[date.getUTCDay()]}`;
   return day;
-}
-
-function getTime(time) {
-  let hours = time.getUTCHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = time.getUTCMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  return `${hours}h${minutes}`;
 }
 
 function currentWeather(response) {
@@ -71,6 +135,10 @@ function currentWeather(response) {
 
   let temperature = document.querySelector("#temp-now");
   temperature.innerHTML = `${Math.round(response.data.main.temp)}`;
+  document.querySelector("#cf").innerHTML = `ºC`;
+  celsiusButton.classList.add("active");
+  fahrenheitButton.classList.remove("active");
+  fahrenheitButton.classList.add("inactive");
 
   let weatherIcon = document.querySelector("#wthr-now-symbol");
   weatherIcon.setAttribute(
@@ -104,6 +172,13 @@ function currentWeather(response) {
     .then(forecast);
 }
 
+function getLocation(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(url).then(currentWeather);
+}
+
 function cityName(city) {
   if (city) {
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -112,13 +187,6 @@ function cityName(city) {
   } else {
     alert("Please enter a city name 🌞");
   }
-}
-
-function getLocation(position) {
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-  axios.get(url).then(currentWeather);
 }
 
 function searchResult(event) {
@@ -138,6 +206,12 @@ let currentLocation = document.querySelector("#location-button");
 currentLocation.addEventListener("click", function () {
   navigator.geolocation.getCurrentPosition(getLocation);
 });
+
+let celsiusButton = document.querySelector("#temp-celsius-btn");
+celsiusButton.addEventListener("click", fahrenheitToCelsius);
+
+let fahrenheitButton = document.querySelector("#temp-fahrenheit-btn");
+fahrenheitButton.addEventListener("click", celsiusToFahrenheit);
 
 //Default location on page load
 cityName("lisbon");

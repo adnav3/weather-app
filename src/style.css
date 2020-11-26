@@ -122,4 +122,9 @@ p {
 .inactive:hover {
   background-color: #0dbf0d;
   color: white;
+  cursor: pointer;
+}
+
+.active:hover {
+  cursor: default;
 }
